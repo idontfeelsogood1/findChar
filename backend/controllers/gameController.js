@@ -31,7 +31,7 @@ async function postMouseClick(req, res) {
         const { x, y, width, height } = await db.findCharacterOfGame(characterId, gameId)
 
         // False even if click is correct but character has been found
-        if (isCorrectClick(clickX, clickY, x, y, width, height) && !req.session.foundCharacterId.includes(characterId)) {
+        if (!req.session.foundCharacterId.includes(characterId) && isCorrectClick(clickX, clickY, x, y, width, height)) {
             req.session.score += 1
             req.session.foundCharacterId.push(characterId)
 
