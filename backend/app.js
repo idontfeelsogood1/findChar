@@ -9,7 +9,13 @@ const app = express();
 
 // CONFIGS
 require('dotenv').config()
-app.use(cors());
+const allowedOrigin = process.env.FRONTEND_URL; 
+app.use(cors({
+  origin: allowedOrigin,
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, 
+  optionsSuccessStatus: 204
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
