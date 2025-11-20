@@ -8,6 +8,7 @@ export default function Game() {
     const [imgNormalizedPosition, setImgNormalizedPosition] = useState({ x: 0, y: 0})
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0})
     const [showMenu, setShowMenu] = useState(false)
+    const [result, setResult] = useState({})
     const url = import.meta.env.VITE_SERVER_URL + `/game/${gameId}`
     const { data, loading, error } = useFetch(url)
 
@@ -80,10 +81,12 @@ export default function Game() {
                 <img src={game.imgUrl} alt={game.imgPath} onClick={handleClick}/>
                 <Menu 
                     characters={characters} 
+                    game={game}
                     showMenu={showMenu} 
                     menuPosition={menuPosition} 
                     imgNormalizedPosition={imgNormalizedPosition}
                     setShowMenu={setShowMenu}
+                    setResult={setResult}
                 />
             </main>
         </div>
