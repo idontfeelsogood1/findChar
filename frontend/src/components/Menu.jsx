@@ -1,8 +1,15 @@
-export default function Menu({ characters, showMenu, menuPosition, imgNormalizedPosition, setShowMenu }) {
-    function handleClick(event, characterId) {
+import { fetchResult } from "../api/fetch"
+
+export default function Menu({ characters, game, showMenu, menuPosition, imgNormalizedPosition, setShowMenu, setResult }) {
+    function handleClick(characterId) {
         setShowMenu(false)
-        // FETCH THE RESULTS
-        // RENDER DIALOUGE BOX FOR A FEW SECONDS THEN REMOVE IT
+        
+        // Set result for game component
+        const callback = async () => {
+            const result = await fetchResult(game.id, characterId, imgNormalizedPosition.x, imgNormalizedPosition.y)
+            setResult(result)
+        }
+        callback()
     }
 
     return showMenu && (
@@ -20,7 +27,7 @@ export default function Menu({ characters, showMenu, menuPosition, imgNormalized
             <ul>
                 {characters.map((character) => {
                     return (
-                        <li onClick={(event) => handleClick(event, character.id)}>{character.name}</li>
+                        <li onClick={() => handleClick(character.id)}>{character.name}</li>
                     )
                 })}
             </ul>
