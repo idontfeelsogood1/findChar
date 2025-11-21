@@ -1,16 +1,26 @@
 import { useParams } from 'react-router';
 import { useFetch } from '../api/hooks';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Menu from './Menu';
+import Dialog from './Dialog';
 
 export default function Game() {
     const { gameId } = useParams()
     const [imgNormalizedPosition, setImgNormalizedPosition] = useState({ x: 0, y: 0})
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0})
     const [showMenu, setShowMenu] = useState(false)
-    const [result, setResult] = useState({})
+    const [showDialog, setShowDialog] = useState(false)
+    const [result, setResult] = useState(null)
     const url = import.meta.env.VITE_SERVER_URL + `/game/${gameId}`
     const { data, loading, error } = useFetch(url)
+
+    // Show dialog on result
+    useEffect(() => {
+        setShowDialog(true)
+        setTimeout(() => {
+            setShowDialog(false)
+        }, "2000")
+    }, [result])
 
     let game = null,
         characters = null
@@ -79,16 +89,29 @@ export default function Game() {
             
             <main>
                 <img src={game.imgUrl} alt={game.imgPath} onClick={handleClick}/>
-                <Menu 
-                    characters={characters} 
-                    game={game}
-                    showMenu={showMenu} 
-                    menuPosition={menuPosition} 
-                    imgNormalizedPosition={imgNormalizedPosition}
-                    setShowMenu={setShowMenu}
-                    setResult={setResult}
-                />
             </main>
+
+            <Menu 
+                characters={characters} 
+                game={game}
+                showMenu={showMenu} 
+                menuPosition={menuPosition} 
+                imgNormalizedPosition={imgNormalizedPosition}
+                setShowMenu={setShowMenu}
+                setResult={setResult}
+            />
+
+            { result && <Dialog 
+                    isCorrectHit={result.isCorrectClick}
+                    hasWon={result.hasWon}
+                    showDialog={showDialog}
+                />
+            }
         </div>
     )
 }
+
+
+    
+
+
