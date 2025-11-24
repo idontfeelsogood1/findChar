@@ -105,6 +105,8 @@ export default function Game() {
                     isCorrectHit={result.isCorrectClick}
                     hasWon={result.hasWon}
                     showDialog={showDialog}
+                    gamename={game.name}
+                    seconds={result.secondsFinished}
                 />
             }
         </div>
