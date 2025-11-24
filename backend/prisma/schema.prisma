@@ -42,20 +42,3 @@ model Session {
   data      String
   expiresAt DateTime
 }
-
-// cityport
-  // maria
-    // width: 37
-    // height: 87
-    // x: 1959
-    // y: 724
-  // kfc
-    // width: 33
-    // height: 39
-    // x: 1294
-    // y: 1119
-  // crabby
-    // width: 44
-    // height: 32
-    // x: 1290
-    // y: 1586
