@@ -1,11 +1,14 @@
 import { useRef } from "react";
+import WinDialog from "./WinDialog";
+import MissDialog from "./MissDialog"
+import HitDialog from "./HitDialog"
 
-export default function Dialog({ isCorrectHit, hasWon, showDialog }) {
+export default function Dialog({ isCorrectHit, hasWon, showDialog, gamename, seconds }) {
     const dialogRef = useRef(null)
 
     // async to ensure dialogRef is set to element before running the function
     async function handleShowDialog() {
-        if (showDialog) {
+        if (showDialog || hasWon) {
             dialogRef.current.showModal()
         } else {
             dialogRef.current.close()
@@ -16,23 +19,21 @@ export default function Dialog({ isCorrectHit, hasWon, showDialog }) {
 
     if (isCorrectHit && !hasWon) {
         return (
-            <dialog ref={dialogRef}>
-                <h1>You Hit!</h1>
-            </dialog>
+            <HitDialog dialogRef={dialogRef} />
         )
     } 
     if (!isCorrectHit) {
         return (
-            <dialog ref={dialogRef}>
-                <h1>You Missed!</h1>
-            </dialog>
+            <MissDialog dialogRef={dialogRef} />
         )
     }
     if (hasWon) {
         return (
-            <dialog ref={dialogRef}>
-                <h1>You Won!</h1>
-            </dialog>
+            <WinDialog 
+                dialogRef={dialogRef}
+                gamename={gamename}
+                seconds={seconds}
+            />
         )
     }
 }
