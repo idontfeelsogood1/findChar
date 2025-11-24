@@ -11,9 +11,9 @@ async function getLeaderboard(req, res) {
 
 async function postLeaderboard(req, res) {
     try {
-        const username = req.params.username
-        const gamename = req.params.gamename
-        const seconds = req.params.seconds
+        const username = req.body.username
+        const gamename = req.body.gamename
+        const seconds = req.body.seconds
         await db.createLeaderboardRecord(username, gamename, seconds)
         res.sendStatus(200) 
     } catch(err) {
