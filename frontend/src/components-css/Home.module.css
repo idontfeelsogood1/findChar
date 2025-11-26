@@ -1,7 +1,51 @@
 .container {
-    
+    justify-content: space-evenly;
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1024px;
+}
+
+.pickGame {
+    text-align: center;
+    padding: 20px;
+}
+
+.imgContainer {
+    flex: 1;
+    max-width: 210px;
+    min-height: 384px;
+    border: var(--primary-border);
+    border-radius: var(--primary-border-radius);
+    background-color: var(--secondary-background-color);
+    box-shadow: var(--primary-box-shadow);
+    transition: all 0.2s;
+}
+
+.imgContainer:hover {
+    transform: scale(1.1);
+    box-shadow: none;
+    border: none;
 }
 
 .customImg {
-    
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--primary-border-radius);
+}
+
+@media screen and (max-width: 768px){
+    .container {
+        flex-direction: column;
+        margin: 0;
+    }
+    .imgContainer {
+        max-width: 768px;
+        min-height: 240px;
+    }
+    .customImg {
+        max-height: 240px;
+    }
 }
