@@ -3,6 +3,7 @@ import { useFetch } from '../api/hooks';
 import { useState, useEffect } from 'react';
 import Menu from './Menu';
 import Dialog from './Dialog';
+import style from '../components-css/Game.module.css'
 
 export default function Game() {
     const { gameId } = useParams()
@@ -27,14 +28,14 @@ export default function Game() {
 
     if (loading) {
         return (
-            <div>
+            <div className={style.loading}>
                 Loading Game...
             </div>
         )
     }
     if (error) {
         return (
-            <div>
+            <div className={style.error}>
                 {error.message}
                 {error.status}
             </div>
@@ -74,21 +75,23 @@ export default function Game() {
     }
 
     return (
-        <div>
-            <header>
+        <div className={style.container}>
+            <header className={style.header}>
                 <h1>Find these characters</h1>
-                {characters.map((character) => {
-                    return (
-                        <div>
-                            <h3>{character.name}</h3>
-                            <img src={character.imgUrl} alt={character.imgPath} />
-                        </div>
-                    )
-                })}
+                <div className={style.characterContainer}>
+                    {characters.map((character) => {
+                        return (
+                            <div>
+                                <h3>{character.name}</h3>
+                                <img src={character.imgUrl} alt={character.imgPath} />
+                            </div>
+                        )
+                    })}
+                </div>
             </header>
             
-            <main>
-                <img src={game.imgUrl} alt={game.imgPath} onClick={handleClick}/>
+            <main className={style.imgContainer}>
+                <img className={style.customImg} src={game.imgUrl} alt={game.imgPath} onClick={handleClick}/>
             </main>
 
             <Menu 
