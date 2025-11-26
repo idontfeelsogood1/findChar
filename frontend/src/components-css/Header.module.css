@@ -26,6 +26,7 @@
     font-size: var(--primary-font-size);
     color: var(--secondary-color);
     transition: all 0.2s;
+    align-self: center;
 }
 
 .leaderboard:hover {
