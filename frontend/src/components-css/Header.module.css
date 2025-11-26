@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--secondary-background-color);
+    padding: 16px 32px;
+    border-radius: var(--secondary-border-radius);
+    max-width: 1024px;
+    margin: auto;
+}
+
+.header > a {
+    text-decoration: none;
+}
+
+.logo {
+    font-size: 20.8px;
+    font-weight: 500;
+    color: black;
+}
+
+.logo:hover {
+    text-decoration: underline;
+}
+
+.leaderboard {
+    font-size: var(--primary-font-size);
+    color: var(--secondary-color);
+    transition: all 0.2s;
+}
+
+.leaderboard:hover {
+    text-decoration: underline;
+    color: black;
+    transform: scale(1.1);
+}
