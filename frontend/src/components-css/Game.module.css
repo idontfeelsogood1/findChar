@@ -1,0 +1,51 @@
+.loading, .error, .header > h1, .characterContainer > div > h3 {
+    text-align: center;
+}
+
+.container {
+
+}
+
+.imgContainer {
+    max-width: 1024px;
+    margin: auto;
+    border: var(--primary-border);
+    box-shadow: var(--primary-box-shadow);
+    border-radius: var(--primary-border-radius);
+}
+
+.customImg {
+    border-radius: var(--primary-border-radius);
+    object-fit: cover;
+    margin: auto;
+}
+
+.header {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--secondary-background-color);
+    padding: 20px;
+    border: var(--primary-border);
+    border-radius: var(--primary-border-radius);
+    max-width: 1024px;
+}
+
+.header > h1 {
+    margin-bottom: 20px;
+}
+
+.characterContainer {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 30px;
+    max-width: 442px;
+    margin: auto;
+}
+
+.characterContainer > div > img {
+    border: var(--primary-border);
+    border-radius: var(--primary-border-radius);
+    box-shadow: var(--primary-box-shadow);
+}
