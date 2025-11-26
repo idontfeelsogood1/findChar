@@ -12,7 +12,7 @@ export default function Home() {
                 </div>
 
                 <div className={style.imgContainer}>
-                    <a href="/gamåe/2">
+                    <a href="/game/2">
                         <img className={style.customImg} src="/images/rainforest.png" alt="rainforest.png" />
                     </a>
                 </div>
