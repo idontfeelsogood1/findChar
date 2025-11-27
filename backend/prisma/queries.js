@@ -4,7 +4,11 @@ require('dotenv').config()
 
 async function findLeaderboard() {
     try {
-        return await prisma.leaderboard.findMany({ })
+        return await prisma.leaderboard.findMany({
+            orderBy: {
+                seconds: "asc"
+            }
+         })
     } catch(err) {
         console.log("DB error at getLeaderboard: ", err)
         throw err
