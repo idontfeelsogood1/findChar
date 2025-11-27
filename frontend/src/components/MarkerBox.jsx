@@ -14,7 +14,6 @@ export default function MarkerBox({ boxInfos }) {
                         left: info.x,
                         width: info.width,
                         height: info.height,
-                        backgroundColor: "black" 
                     }}
                 >
                 </div>
