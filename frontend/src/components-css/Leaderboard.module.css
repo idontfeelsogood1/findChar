@@ -1,0 +1,29 @@
+.loading, .error {
+    text-align: center;
+}
+
+.customTable {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    text-align: center;
+    border-collapse: collapse; 
+    width: 100%;
+    background-color: var(--secondary-background-color);
+    box-shadow: var(--primary-box-shadow);
+}
+
+.customTr {
+    border-bottom: 1px solid black;
+}
+
+.tableHead > tr > th {
+    background-color: black;
+    color: white;
+}
+
+.tableHead > tr > th,
+.tableBody > tr > td {
+    border: 6px solid lightgray;
+    padding: 8px;
+    box-shadow: var(--primary-box-shadow);
+}
