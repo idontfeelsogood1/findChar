@@ -2,10 +2,6 @@
     text-align: center;
 }
 
-.container {
-
-}
-
 .imgContainer {
     max-width: 1024px;
     margin: auto;
@@ -18,6 +14,7 @@
     border-radius: var(--primary-border-radius);
     object-fit: cover;
     margin: auto;
+    cursor: crosshair;
 }
 
 .header {
