@@ -8,6 +8,7 @@ import style from '../components-css/Game.module.css'
 export default function Game() {
     const { gameId } = useParams()
     const [imgNormalizedPosition, setImgNormalizedPosition] = useState({ x: 0, y: 0})
+    const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0})
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0})
     const [showMenu, setShowMenu] = useState(false)
     const [showDialog, setShowDialog] = useState(false)
@@ -59,7 +60,8 @@ export default function Game() {
     function handleClick(event) {
         if (!showMenu) {
             setShowMenu(true)
-            setMenuPosition({ x: event.pageX + 20, y: event.pageY})
+            setMenuPosition({ x: event.pageX, y: event.pageY})
+            setCursorPosition({ x: event.pageX, y: event.pageY})
             const { normalizedX, normalizedY } = normalizeImgCoords(
                                                     event.nativeEvent.offsetX, 
                                                     event.nativeEvent.offsetY,
@@ -99,6 +101,7 @@ export default function Game() {
                 game={game}
                 showMenu={showMenu} 
                 menuPosition={menuPosition} 
+                cursorPosition={cursorPosition}
                 imgNormalizedPosition={imgNormalizedPosition}
                 setShowMenu={setShowMenu}
                 setResult={setResult}
