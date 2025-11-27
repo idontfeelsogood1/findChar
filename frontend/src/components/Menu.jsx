@@ -8,7 +8,10 @@ export default function Menu({ characters, game, showMenu, menuPosition, cursorP
         // Set result for game component
         const callback = async () => {
             const result = await fetchResult(game.id, characterId, imgNormalizedPosition.x, imgNormalizedPosition.y)
-            setResult(result)
+            setResult({
+                ...result,
+                characterId: characterId,
+            })
         }
         callback()
     }
