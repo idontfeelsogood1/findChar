@@ -1,4 +1,5 @@
 import { useFetch } from "../api/hooks"
+import style from "../components-css/Leaderboard.module.css"
 
 export default function Leaderboard() {
     const url = import.meta.env.VITE_SERVER_URL + `/leaderboard`
@@ -7,12 +8,12 @@ export default function Leaderboard() {
 
     if (loading) {
         return (
-            <h1>Loading leaderboard...</h1>
+            <h1 className={style.loading}>Loading leaderboard...</h1>
         )
     }
     if (error) {
         return (
-            <div>
+            <div className={style.error}>
                 {error.message}
                 {error.status}
             </div>
@@ -23,19 +24,19 @@ export default function Leaderboard() {
     }
 
     return (
-        <table>
-            <thead>
-                <tr>
+        <table className={style.customTable}>
+            <thead className={style.tableHead}>
+                <tr className={style.customTr}>
                     <th>Player Name</th>
                     <th>Seconds</th>
                     <th>Game Name</th>
                 </tr>
             </thead>
 
-            <tbody>
+            <tbody className={style.tableBody}>
                 {leaderboard.map((item) => {
                     return (
-                        <tr>
+                        <tr className={style.customTr}>
                             <td>{item.username}</td>
                             <td>{item.seconds}</td>
                             <td>{item.gamename}</td>
