@@ -24,26 +24,28 @@ export default function Leaderboard() {
     }
 
     return (
-        <table className={style.customTable}>
-            <thead className={style.tableHead}>
-                <tr className={style.customTr}>
-                    <th>Player Name</th>
-                    <th>Seconds</th>
-                    <th>Game Name</th>
-                </tr>
-            </thead>
+        <div className={style.container}>
+            <table className={style.customTable}>
+                <thead className={style.tableHead}>
+                    <tr className={style.customTr}>
+                        <th>Player Name</th>
+                        <th>Seconds</th>
+                        <th>Game Name</th>
+                    </tr>
+                </thead>
 
-            <tbody className={style.tableBody}>
-                {leaderboard.map((item) => {
-                    return (
-                        <tr className={style.customTr}>
-                            <td>{item.username}</td>
-                            <td>{item.seconds}</td>
-                            <td>{item.gamename}</td>
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
+                <tbody className={style.tableBody}>
+                    {leaderboard.map((item) => {
+                        return (
+                            <tr className={style.customTr}>
+                                <td>{item.username}</td>
+                                <td>{item.seconds}</td>
+                                <td>{item.gamename}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </table>
+        </div>
     )
 }

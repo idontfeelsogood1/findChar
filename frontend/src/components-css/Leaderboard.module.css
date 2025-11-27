@@ -1,10 +1,16 @@
+.container {
+    max-width: 1024px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .loading, .error {
     text-align: center;
 }
 
 .customTable {
-    margin-top: 40px;
-    margin-bottom: 40px;
     text-align: center;
     border-collapse: collapse; 
     width: 100%;
@@ -26,4 +32,10 @@
     border: 6px solid lightgray;
     padding: 8px;
     box-shadow: var(--primary-box-shadow);
+}
+
+@media (max-width: 768px) {
+    .customTable {
+        font-size: small;
+    }
 }
