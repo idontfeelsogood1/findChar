@@ -1,0 +1,30 @@
+.customDiag {
+    margin: auto;
+    background-color: var(--secondary-background-color);
+    border: black 3px solid;
+    border-radius: var(--primary-border-radius);
+    padding: 20px 40px;
+    max-width: 440px;
+}
+
+.customHeader {
+    margin-bottom: 20px;
+}
+
+.customForm > p {
+    margin-bottom: 20px;
+}
+
+.customForm > p > input,
+.customForm > button {
+    width: 100%;
+}
+
+.customForm > button {
+    transition: all 0.2s;
+}
+
+.customForm > button:hover {
+    background-color: black;
+    color: white;
+}
