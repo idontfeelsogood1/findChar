@@ -3,6 +3,7 @@
 }
 
 .imgContainer {
+    position: relative;
     max-width: 1024px;
     margin: auto;
     border: var(--primary-border);
