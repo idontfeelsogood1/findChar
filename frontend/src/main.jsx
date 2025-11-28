@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import './index.css'
 import App from './App.jsx'
 
@@ -12,7 +12,9 @@ createRoot(document.getElementById('root')).render(
     <Routes>
       <Route path="/" element={<App />} >
 
-        <Route index path="home" element={<Home />} />
+        <Route index element={<Navigate to="home" replace />} />
+
+        <Route path="home" element={<Home />} />
 
         <Route path="leaderboard" element={<Leaderboard />} />
 
@@ -22,3 +24,7 @@ createRoot(document.getElementById('root')).render(
     </Routes>
   </BrowserRouter>,
 )
+
+// BUGS:
+  // GOING TO ROOT URL DOES NOT RENDER <Home />
+  // populatedb.js MUST RESET INCREMENTAL ID
