@@ -1,59 +1,90 @@
-# Find The Character (Photo Tagging App)
+# 🕵️ Find The Character (Photo Tagging App)
 
-A full-stack "Where's Waldo" style game where players search for hidden characters in panoramic images. The application features backend coordinate validation, session-based scoring, and a global leaderboard.
+<div align="center">
+
+A full-stack, "Where's Waldo" style browser game featuring panoramic image search, server-side coordinate validation, and competitive global leaderboards.
 
 [**🔴 Live Demo**](https://findchar.vercel.app/) | [**📂 Backend Repo**](https://github.com/idontfeelsogood1/findChar/tree/main/backend)
 
-<img width="1051" height="1216" alt="image" src="https://github.com/user-attachments/assets/ee74c28b-69d5-473a-ab80-89e8852fe89c" />
-<img width="1050" height="1211" alt="image" src="https://github.com/user-attachments/assets/3bee599d-b5d1-4013-8355-2287cd15864a" />
+<br />
 
-## 🚀 Features
+<!-- Tech Stack Badges -->
+![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61DAFB)
+![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
 
-* **4 Unique Levels:** Search through City Port, Rainforest, Floating Island, and Medieval Village.
-* **Coordinate Normalization:** Accurate clicking works on any screen size or zoom level.
-* **Server-Side Validation:** Game logic and "hit" detection happen on the server to prevent cheating.
-* **Session Tracking:** Anonymous user progress is tracked via secure HTTP-only cookies.
-* **Global Leaderboard:** Compete with other players for the fastest time.
-* **Visual Feedback:** Interactive markers show correct/incorrect guesses.
+<br />
+<br />
 
-## 🛠️ Tech Stack
+<!-- Screenshots in a Grid -->
+<p float="left">
+  <img src="https://github.com/user-attachments/assets/ee74c28b-69d5-473a-ab80-89e8852fe89c" width="45%" alt="Game Gameplay" />
+  <img src="https://github.com/user-attachments/assets/3bee599d-b5d1-4013-8355-2287cd15864a" width="45%" alt="Level Selection" />
+</p>
 
-### Frontend
-* **React:** UI and state management.
-* **CSS Modules:** Scoped styling for components.
-* **React Router:** Dynamic routing for game levels.
+</div>
 
-### Backend
-* **Node.js & Express:** RESTful API.
-* **PostgreSQL:** Relational database for storing maps, characters, and scores.
-* **Prisma ORM:** Database schema management and queries.
-* **Express-Session:** Managing user game sessions.
-* **Jest & Supertest:** Integration testing for API endpoints.
+---
 
-## 🧠 Key Technical Concepts
+## 🚀 Key Features
+
+* **🌎 4 Panoramic Levels:** Explore highly detailed maps: City Port, Rainforest, Floating Island, and Medieval Village.
+* **📏 Coordinate Normalization:** Custom algorithm ensures accurate clicking regardless of screen size, zoom level, or device type.
+* **🛡️ Server-Side Anti-Cheat:** All hit-detection logic resides on the server. The frontend only sends click coordinates; the backend validates them.
+* **🍪 Secure Sessions:** Uses HTTP-only cookies and `express-session` to track anonymous progress without requiring user registration.
+* **🏆 Global Leaderboard:** Submit your best times and compete against other players.
+* **✨ Interactive UI:** Custom visual markers (using SVG) indicate hits and misses dynamically.
+
+---
+
+## 🧠 Technical Deep Dive
 
 ### 1. Coordinate Normalization
-The images on the frontend are responsive and resize based on the user's screen. However, the database stores "Hit Boxes" based on the **original** image resolution.
-* **Frontend:** Calculates a scaling ratio (`currentWidth / baseWidth`) on every click.
-* **Logic:** Converts the clicked pixel coordinate back to the "Base Resolution" before sending it to the server.
+One of the biggest challenges in this project was handling responsive images. As the browser resizes the image, the pixel coordinates of a character change, but the database stores fixed "Hit Box" coordinates based on the **original** image resolution.
+
+**The Solution:**
+The frontend calculates a scaling ratio (`currentWidth / baseWidth`) on every click and normalizes the coordinates before sending them to the API.
+
+
+
+[Image of coordinate scaling diagram]
+
 
 ### 2. Point-in-Rectangle Validation
-To verify a found character, the backend uses a mathematical "Point-in-Rectangle" check.
+To verify if a user found a character, the backend performs a mathematical "Point-in-Rectangle" check. This ensures that even if a user tries to manipulate frontend code, they cannot fake a "find" without guessing the exact coordinates.
+
+
+
 ```javascript
+// Backend logic to determine a "hit"
 const isInsideX = (clickX >= rectX) && (clickX <= rectX + rectWidth);
 const isInsideY = (clickY >= rectY) && (clickY <= rectY + rectHeight);
-// Returns true only if both are true
+
+if (isInsideX && isInsideY) {
+    return { found: true };
+}
 ```
 
 ### 3. Session-Based Game State
-The app does not require user registration. Instead, it uses `express-session` with a PostgreSQL session store (via Prisma) to create temporary game instances.
-* When a game starts, a timer and `foundCharacters` set are initialized in the session.
-* The **Win Condition** is checked entirely on the backend to ensure the recorded time is legitimate.
+
+To lower the barrier to entry, the app does not require account creation. Instead, it creates a temporary game instance using `express-session` backed by PostgreSQL.
+
+* **Start:** Server initializes a session timer.
+
+* **Play:** Found characters are stored in the session `Set`.
+
+* **Win:** The server compares the session start time vs. end time to calculate the final score, ensuring the timestamp cannot be spoofed by the client.
 
 ## 💾 Database Schema
 
-The data is structured using Prisma with the following models:
-* **Game:** Stores map metadata (image path, base dimensions).
-* **Character:** Stores hit-box coordinates (`x`, `y`, `width`, `height`) linked to a Game.
-* **Leaderboard:** Stores user submissions and completion times.
-* **Session:** Stores active browser sessions.
+The application uses **Prisma ORM** with **PostgreSQL**. The schema is designed to separate game metadata from game logic.
+
+| Model | Description | 
+ | ----- | ----- | 
+| **Game** | Stores metadata for the 4 levels (image path, base dimensions). | 
+| **Character** | Stores the secret "Hit Box" coordinates (`x`, `y`, `width`, `height`) linked to a Game. | 
+| **Leaderboard** | Stores user submissions, linked to specific levels. | 
+| **Session** | Stores active browser sessions (cookie-based). |
