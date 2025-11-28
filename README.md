@@ -48,11 +48,6 @@ One of the biggest challenges in this project was handling responsive images. As
 **The Solution:**
 The frontend calculates a scaling ratio (`currentWidth / baseWidth`) on every click and normalizes the coordinates before sending them to the API.
 
-
-
-[Image of coordinate scaling diagram]
-
-
 ### 2. Point-in-Rectangle Validation
 To verify if a user found a character, the backend performs a mathematical "Point-in-Rectangle" check. This ensures that even if a user tries to manipulate frontend code, they cannot fake a "find" without guessing the exact coordinates.
 
