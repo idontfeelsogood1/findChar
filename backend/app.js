@@ -13,7 +13,6 @@ const allowedOrigin = process.env.FRONTEND_URL;
 app.use(cors({
   origin: allowedOrigin,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  sameSite: 'none',
   credentials: true, 
   optionsSuccessStatus: 204
 }));
@@ -24,7 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   expressSession({
     cookie: {
-     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+     maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+     sameSite: 'none',
     },
     secret: process.env.SESSION_SECRET,
     resave: false,
