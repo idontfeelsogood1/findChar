@@ -13,6 +13,7 @@ const allowedOrigin = process.env.FRONTEND_URL;
 app.use(cors({
   origin: allowedOrigin,
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  sameSite: 'lax',
   credentials: true, 
   optionsSuccessStatus: 204
 }));
