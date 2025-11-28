@@ -2,6 +2,7 @@ const { PrismaClient } = require('../generated/prisma');
 const prisma = new PrismaClient();
 
 const gamesData = [
+  // ... (Your existing data array keeps going here) ...
   {
     name: "City Port",
     imgPath: "cityport.png",
@@ -51,14 +52,19 @@ const gamesData = [
 async function main() {
   console.log('Start seeding...');
 
-  // 1. Clean up existing data to avoid duplicates
-  // Note: We delete Characters first because they depend on Games
-  await prisma.character.deleteMany({});
-  await prisma.game.deleteMany({});
-  await prisma.leaderboard.deleteMany({}); 
+  // 1. Clean up and Reset IDs
+  // We use executeRawUnsafe to run a raw SQL TRUNCATE command.
+  // RESTART IDENTITY: Resets the auto-increment counter.
+  // CASCADE: Deletes dependent rows (so deleting Game also deletes Character).
+  
+  // NOTE: If your table names are lowercase in the DB, change "Game" to "game" etc.
+  try {
+    await prisma.$executeRawUnsafe(`TRUNCATE TABLE "Game", "Character", "Leaderboard" RESTART IDENTITY CASCADE;`);
+  } catch (error) {
+    console.log("Error truncation tables. If this is the first run, it might be fine.");
+  }
 
   // 2. Insert new data
-  // We use nested writes to create the Game and its Characters in one go
   for (const game of gamesData) {
     const createdGame = await prisma.game.create({
       data: {
